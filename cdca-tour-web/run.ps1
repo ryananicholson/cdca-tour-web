@@ -9,7 +9,9 @@ Import-Module CosmosDB -UseWindowsPowerShell
 # Write to the Azure Functions log stream.
 Write-Host "PowerShell HTTP trigger function processed a request."
 
-$cosmosContext = New-CosmosDbContext -Account cdca-cosmos -Database CDCADB -ResourceGroup cdca-rg
+$acctName = (Get-AzCosmosDBAccount -ResourceGroupName cdca_rg | where Name -like cdca-tour-web*).Name
+
+$cosmosContext = New-CosmosDbContext -Account $acctName -Database CDCADB -ResourceGroup cdca_rg
 $results = Get-CosmosDbDocument -Context $cosmosContext -CollectionId cdca-tour-schedule
 $body = $results | Select-Object city
 
