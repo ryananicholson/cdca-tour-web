@@ -11,7 +11,7 @@ Write-Host "PowerShell HTTP trigger function processed a request."
 
 $cosmosContext = New-CosmosDbContext -Account cdca-cosmos -Database CDCADB -ResourceGroup cdca-rg
 $results = Get-CosmosDbDocument -Context $cosmosContext -CollectionId cdca-tour-schedule
-$body = "test"
+$body = $results | Select-Object city
 
 # Associate values to output bindings by calling 'Push-OutputBinding'.
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
