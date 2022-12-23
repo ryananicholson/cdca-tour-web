@@ -13,7 +13,7 @@ $acctName = (Get-AzCosmosDBAccount -ResourceGroupName cdca_rg | where Name -like
 
 $cosmosContext = New-CosmosDbContext -Account $acctName -Database CDCADB -ResourceGroup cdca_rg
 $results = Get-CosmosDbDocument -Context $cosmosContext -CollectionId cdca-tour-schedule
-$body = $results | Select-Object city
+$body = $results | ConvertTo-Json
 
 # Associate values to output bindings by calling 'Push-OutputBinding'.
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
