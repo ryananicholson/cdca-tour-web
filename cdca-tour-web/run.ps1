@@ -3,7 +3,7 @@ using namespace System.Net
 # Input bindings are passed in via param block.
 param($Request, $TriggerMetadata)
 
-Connect-AzAccount -Identity
+#Connect-AzAccount -Identity
 Import-Module CosmosDB -UseWindowsPowerShell
 
 # Write to the Azure Functions log stream.
