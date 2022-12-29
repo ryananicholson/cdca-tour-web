@@ -4,6 +4,7 @@ using namespace System.Net
 param($Request, $TriggerMetadata)
 
 #Connect-AzAccount -Identity
+Import-Module Az -UseWindowsPowerShell
 Import-Module AzTable -UseWindowsPowerShell
 
 $storageAccount = Get-AzStorageAccount | Where-Object -Property StorageAccountName -like "cdcatour*"
