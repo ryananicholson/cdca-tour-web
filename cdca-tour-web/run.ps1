@@ -4,16 +4,12 @@ using namespace System.Net
 param($Request, $TriggerMetadata)
 
 #Connect-AzAccount -Identity
-Import-Module CosmosDB -UseWindowsPowerShell
+Import-Module AzTable -UseWindowsPowerShell
 
-# Write to the Azure Functions log stream.
-Write-Host "PowerShell HTTP trigger function processed a request."
-
-$acctName = (Get-AzCosmosDBAccount -ResourceGroupName cdca_rg | where Name -like cdca-tour-*).Name
-
-$cosmosContext = New-CosmosDbContext -Account $acctName -Database CDCADB -ResourceGroup cdca_rg
-$results = Get-CosmosDbDocument -Context $cosmosContext -CollectionId cdca-tour-schedule
-$body = $results | ConvertTo-Json
+$storageAccount = Get-AzStorageAccount | Where-Object -Property StorageAccountName -like "cdcatour*"
+$context = $storageAccount.Context
+$table = Get-AzStorageTable -Context $context -Name cdcatourtable
+$body = Get-AzTableRow -Table $table.CloudTable | ConvertTo-Json
 
 # Associate values to output bindings by calling 'Push-OutputBinding'.
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
