@@ -1,5 +1,8 @@
 using namespace System.Net
 
+Import-Module Az -UseWindowsPowerShell
+Import-Module AzTable -UseWindowsPowerShell
+
 # Input bindings are passed in via param block.
 param($Request, $TriggerMetadata)
 
