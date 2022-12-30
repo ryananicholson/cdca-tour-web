@@ -3,10 +3,6 @@ using namespace System.Net
 # Input bindings are passed in via param block.
 param($Request, $TriggerMetadata)
 
-#Connect-AzAccount -Identity
-Import-Module Az -UseWindowsPowerShell
-Import-Module AzTable -UseWindowsPowerShell
-
 $storageAccount = Get-AzStorageAccount | Where-Object -Property StorageAccountName -like "cdcatour*"
 $context = $storageAccount.Context
 $table = Get-AzStorageTable -Context $context -Name cdcatourtable
